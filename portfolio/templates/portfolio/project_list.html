@@ -1,0 +1,96 @@
+<!-- templates/portfolio/project_list.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <title>My Projects</title>
+    <style>
+        body {
+            background-color: #e0f7fa; /* Light blue background */
+        }
+        .container {
+            min-height: 100vh; /* Full viewport height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for title */
+            font-size: 3rem; /* Increase font size for title */
+        }
+        .btn-primary {
+            margin-bottom: 20px;
+            font-size: 1.2rem; /* Increase button font size */
+        }
+        .card {
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover effect */
+            background-color: #f5f5dc; /* White cream background for each project */
+            color: #000; /* Dark text for contrast */
+            font-size: 1.2rem; /* Increase font size for content */
+            padding: 15px;
+        }
+        .card:hover {
+            transform: translateY(-5px); /* Slight lift on hover */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+        }
+        .btn-info:hover {
+            background-color: #0275d8; /* Darker blue for View button */
+            color: #fff;
+        }
+        .btn-warning:hover {
+            background-color: #f0ad4e; /* Darker orange for Edit button */
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background-color: #c9302c; /* Darker red for Delete button */
+            color: #fff;
+        }
+        .card-title {
+            font-size: 1.5rem; /* Larger title text */
+        }
+        .card-text {
+            font-size: 1.1rem; /* Increase font size for description */
+        }
+        /* Adjust the column sizes and ensure they are responsive */
+        .col-md-4 {
+            max-width: 350px; /* Increase the size of each column */
+            width: 100%;
+        }
+        /* Ensure columns are side by side */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">My Projects</h1>
+        <a href="{% url 'portfolio:project_create' %}" class="btn btn-primary btn-lg">Add New Project</a>
+        <div class="row justify-content-center">
+            {% for project in projects %}
+                <div class="col-md-4 mb-4"> <!-- Each project takes up its own column -->
+                    <div class="card">
+                        <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ project.title }}</h5>
+                            <p class="card-text">{{ project.description|truncatewords:20 }}</p>
+                            <div class="d-flex justify-content-between">
+                                <a href="{% url 'portfolio:project_detail' project.pk %}" class="btn btn-info">View</a>
+                                <a href="{% url 'portfolio:project_edit' project.pk %}" class="btn btn-warning">Edit</a>
+                                <a href="{% url 'portfolio:project_delete' project.pk %}" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!-- templates/portfolio/project_detail.html -->
+
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+
+<title>{{ project.title }}</title>
+
+<style>
+    body {
+        background-color: #f5deb3; /* Light brown background */
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        margin-top: 50px;
+        background-color: #fff; /* White background for content area */
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for content */
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+        text-transform: capitalize; /* Ensure title is capitalized */
+    }
+
+    p {
+        font-size: 1.2rem;
+        line-height: 1.6; /* Better readability */
+        text-align: justify;
+        margin-top: 20px;
+    }
+
+    .img-fluid {
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        font-size: 1.1rem;
+        margin: 10px 5px; /* Space between buttons */
+    }
+
+    .btn-success:hover {
+        background-color: #218838; /* Darker green for hover */
+    }
+
+    .btn-warning:hover {
+        background-color: #d39e00; /* Darker yellow for hover */
+    }
+
+    .btn-danger:hover {
+        background-color: #bd2130; /* Darker red for hover */
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268; /* Darker gray for hover */
+    }
+
+    .text-center {
+        text-align: center;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h1 class="text-center">{{ project.title }}</h1>
+    <div class="text-center">
+        <img src="{{ project.image.url }}" class="img-fluid" alt="{{ project.title }}">
+    </div>
+    <p>{{ project.description }}</p>
+    <div class="text-center">
+        <a href="{{ project.link }}" class="btn btn-success">View Project Link</a>
+        <a href="{% url 'portfolio:project_edit' project.pk %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'portfolio:project_delete' project.pk %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'portfolio:project_list' %}" class="btn btn-secondary">Back to Projects</a>
+    </div>
+</div>
+
+</body>
+
+</html>
