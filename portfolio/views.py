@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Project, Tag
-from .forms import ProjectForm, TagForm
+from .models import Project, Feedback
+from .forms import ProjectForm, FeedbackForm
 from django.contrib.auth.decorators import login_required
 
 @login_required  # Ensures the user is logged in
@@ -10,8 +10,25 @@ def project_list(request):
 
 @login_required  # Ensures the user is logged in
 def project_detail(request, pk):
-    project = get_object_or_404(Project, pk=pk, user=request.user)
-    return render(request, 'portfolio/project_detail.html', {'project': project})
+    project = get_object_or_404(Project, pk=pk, user=request.user)  # Ensure user owns the project
+    feedbacks = project.feedbacks.all()  # Get all feedback related to the project
+
+    if request.method == 'POST':
+        feedback_form = FeedbackForm(request.POST)
+        if feedback_form.is_valid():
+            feedback = feedback_form.save(commit=False)
+            feedback.project = project
+            feedback.user = request.user if request.user.is_authenticated else None  # Set user if logged in
+            feedback.save()
+            return redirect('portfolio:project_detail', pk=project.pk)
+    else:
+        feedback_form = FeedbackForm()
+
+    return render(request, 'portfolio/project_detail.html', {
+        'project': project,
+        'feedbacks': feedbacks,
+        'feedback_form': feedback_form,
+    })
 
 @login_required  # Ensures the user is logged in
 def project_create(request):
