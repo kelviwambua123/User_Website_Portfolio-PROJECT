@@ -6,25 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Futura&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
         body {
-            background-color: #f0e68c; /* Soft pastel yellow background */
+            background-color: #e0f7fa; /* Light cyan background */
             display: grid;
             height: 100vh;
             margin: 0;
             justify-items: center;
             align-items: center;
             font-size: 18px; /* Increased base font size */
-            font-family: 'Futura', sans-serif; /* Set Futura as the base font */
+            font-family: 'Montserrat', sans-serif; /* Set Montserrat as the base font */
         }
 
         .container {
             background: #d4edda; /* Light green background for the container */
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 15px; /* Reduced padding for a smaller height */
-            max-width: 300px; /* Reduced maximum width for the form */
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            padding: 20px; /* Increased padding for a more spacious look */
+            max-width: 400px; /* Increased maximum width for the form */
             width: 100%; /* Responsive width */
             display: flex;
             flex-direction: column;
@@ -34,15 +34,15 @@
         }
 
         .container:hover {
-            transform: scale(1.02); /* Slightly enlarge on hover */
+            transform: scale(1.03); /* Slightly enlarge on hover */
         }
 
         h1 {
             text-align: center;
             color: #333; /* Darker text for contrast */
-            font-size: 24px; /* Increased font size for the heading */
-            font-weight: bold; /* Make title bold */
-            font-family: 'Fjalla One', sans-serif; /* Use Fjalla One for the title */
+            font-size: 26px; /* Increased font size for the heading */
+            font-weight: 700; /* Make title bold */
+            font-family: 'Montserrat', sans-serif; /* Use Montserrat for the title */
         }
 
         .alert {
@@ -56,7 +56,8 @@
             color: white; /* White text for the button */
             border: none; /* Remove default border */
             border-radius: 5px; /* Rounded corners */
-            padding: 8px; /* Reduced padding for the button */
+            padding: 10px; /* Increased padding for the button */
+            cursor: pointer; /* Pointer cursor on hover */
         }
 
         button:hover {
@@ -85,7 +86,7 @@
         {% endfor %}
     {% endif %}
 
-    {% if form.errors %}
+    {% comment %} {% if form.errors %}
         <div class="alert alert-danger" role="alert">
             <strong>Please correct the following errors:</strong>
             <ul>
@@ -94,7 +95,7 @@
                 {% endfor %}
             </ul>
         </div>
-    {% endif %}
+    {% endif %} {% endcomment %}
 
     <form method="post">
         {% csrf_token %}

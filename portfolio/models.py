@@ -15,6 +15,7 @@ class Project(models.Model):
     image = models.ImageField(upload_to='projects/')
     link = models.URLField(blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
